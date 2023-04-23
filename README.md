@@ -5,7 +5,7 @@
 A simple notes created using React with localStorage API.
 
 This repository contains 2 branches:
-- `main` : built version of the react app
+- `main` : built version of the react app (running on https://reactive-notes.netlify.app/)
 - `app` : source code for the app
 
 ## Technologies Used
