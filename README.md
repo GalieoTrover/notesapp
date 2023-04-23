@@ -4,6 +4,10 @@
 
 A simple notes created using React with localStorage API.
 
+This repository contains 2 branches:
+- `main` : built version of the react app
+- `app` : source code for the app
+
 ## Technologies Used
 
 - [React](https://react.dev/)
