@@ -152,14 +152,9 @@
     border: none;
   }
   .sidebar-header {
-    gap: 0px;
-    flex-direction: column;
     border-bottom: 1px solid var(--bg-color);
   }
-  .sidebar-header .add-note {
-    margin-bottom: 20px;
-  }
-  .no-notes {
+    .no-notes {
     width: 100%;
     height: 100%;
   }

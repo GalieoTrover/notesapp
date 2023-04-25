@@ -5,7 +5,7 @@ function Editor({ currentNote, updateNote }) {
 
     return (
     <div className="container">
-        <MDEditor value={currentNote.body} onChange={(value)=>updateNote(value)} tabSize={4} preview="edit" extraCommands={[commands.codeEdit]} />
+        <MDEditor value={currentNote.body} onChange={(value)=>updateNote(value)} tabSize={4} preview="edit" extraCommands={[]} />
         <div className="preview-window">
             <h5 className="preview-heading">Preview</h5>
             <MDEditor.Markdown source={currentNote.body} style={{ whiteSpace: 'pre-wrap' }}/>
