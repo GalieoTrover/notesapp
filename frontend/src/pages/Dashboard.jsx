@@ -1,5 +1,7 @@
 import { nanoid } from "nanoid";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Sidebar from "../components/Sidebar";
 import Editor from "../components/Editor";
@@ -12,9 +14,15 @@ const Dashboard = () => {
     (notes[0] && notes[0].id) || ""
   );
 
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+
   // setting items in localstorage
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes)); // JSON.stringify to convert the array into a string
+    if (!user) {
+      navigate("/login");
+    }
   }, [notes]);
 
   function createNewNote() {
