@@ -1,14 +1,27 @@
+/* imports */
 import { nanoid } from "nanoid";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getNotes } from "../features/notes/notesSlice";
 
+/* components */
 import Sidebar from "../components/Sidebar";
 import Editor from "../components/Editor";
 
+/* assets */
 import github from "../../public/github.svg";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const { notesData, isLoading } = useSelector((state) => state.notes);
+
+  useEffect(() => {
+    dispatch(getNotes());
+  }, []);
+
+  console.log(notesData);
+
   const [notes, setNotes] = useState(
     JSON.parse(localStorage.getItem("notes")) || []
   ); // JSON.parse to convert string to array
