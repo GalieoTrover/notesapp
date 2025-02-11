@@ -35,6 +35,7 @@ export const registerUser = expressAsyncHandler(async (req, res) => {
       email: user.email,
       password: hashPass,
       token: generateToken(user.id),
+      message: 'Registered successfully'
     });
   } else {
     res.status(400);
@@ -58,6 +59,7 @@ export const loginUser = expressAsyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       token: generateToken(user.id),
+      message: 'Login successful'
     });
   } else {
     res.status(400);
