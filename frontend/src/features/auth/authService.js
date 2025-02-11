@@ -1,9 +1,8 @@
 import axiosInstance from "../../app/axiosCore";
-
-const API_URL = "/api/users/";
+import { USERS_POINT } from "../../app/constants";
 
 const register = async (userData) => {
-  const response = await axiosInstance.post(API_URL, userData);
+  const response = await axiosInstance.post(USERS_POINT, userData);
 
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data.token));
@@ -13,7 +12,7 @@ const register = async (userData) => {
 };
 
 const login = async (userData) => {
-  const response = await axiosInstance.post(API_URL + "login", userData);
+  const response = await axiosInstance.post(USERS_POINT + "login", userData);
 
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data.token));

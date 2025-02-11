@@ -12,8 +12,6 @@ export const getNotes = createAsyncThunk(
   "notes/getAll",
   async (_, thunkAPI) => {
     try {
-      const state = thunkAPI.getState();
-      console.log(state);
       const token = thunkAPI.getState().auth.user.token;
       return notesService.getNotes(token);
     } catch (error) {

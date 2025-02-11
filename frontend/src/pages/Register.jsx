@@ -48,7 +48,7 @@ const Register = () => {
     if (isSuccess || user) {
       navigate("/");
     }
-    dispatch(reset());
+    // dispatch(reset());
   }, [navigate, dispatch, user, message, isSuccess, isError]);
 
   if (isLoading) {

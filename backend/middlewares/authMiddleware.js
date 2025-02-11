@@ -13,7 +13,6 @@ const protect = expressAsyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
       let decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id);
-      console.log(req.user);
       next();
     } catch (error) {
       res.status(400);
