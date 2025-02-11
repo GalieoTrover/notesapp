@@ -9,15 +9,15 @@ const notesSchema = mongoose.Schema(
     },
     title: {
       type: String,
-      required: [true, "Please provide a title for note."],
+      required: false,
     },
     description: {
       type: String,
       required: false,
     },
     body: {
-      type: String,
-      required: false,
+      type: Array,
+      required: true,
     },
   },
   { timestamps: true }

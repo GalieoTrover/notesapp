@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getNotes } from "../features/notes/notesSlice";
+import { createNoteThunk, getNotesThunk } from "../features/notes/notesSlice";
 
 /* components */
 import Sidebar from "../components/Sidebar";
@@ -17,14 +17,15 @@ const Dashboard = () => {
   const { notesData, isLoading } = useSelector((state) => state.notes);
 
   useEffect(() => {
-    dispatch(getNotes());
+    dispatch(getNotesThunk());
   }, []);
 
-  console.log(notesData);
+  // console.log(notesData);
 
   const [notes, setNotes] = useState(
     JSON.parse(localStorage.getItem("notes")) || []
   ); // JSON.parse to convert string to array
+
   const [currentNoteId, setCurrentNoteId] = useState(
     (notes[0] && notes[0].id) || ""
   );
@@ -35,6 +36,9 @@ const Dashboard = () => {
   // setting items in localstorage
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes)); // JSON.stringify to convert the array into a string
+
+    // dispatch(createNoteThunk(notes));
+
     if (!user) {
       navigate("/login");
     }
@@ -76,7 +80,7 @@ const Dashboard = () => {
   return (
     <>
       <Sidebar
-        notes={notes}
+        notes={notesData[0].body}
         currentNote={findCurrentNote()}
         setCurrentNoteId={setCurrentNoteId}
         newNote={createNewNote}

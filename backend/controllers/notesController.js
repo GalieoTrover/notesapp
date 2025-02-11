@@ -8,15 +8,17 @@ export const getNotes = expressAsyncHandler(async (req, res) => {
 });
 
 export const createNote = expressAsyncHandler(async (req, res) => {
-  const { body } = req.body;
+  const { body } = req;
 
   if (!body) {
     res.status(400);
     throw new Error("Please provide a title");
   }
 
+  // console.log(body);
+
   const note = await Notes.create({
-    body: req.body.body,
+    body: body,
     user: req.user.id,
   });
   res.status(200).json(note);
@@ -48,7 +50,7 @@ export const updateNote = expressAsyncHandler(async (req, res) => {
     new: true,
   });
 
-  res.status(200).json(updatedNote);
+  res.status(200).json(updatedNote, { message: "Note updated" });
 });
 
 export const deleteNote = expressAsyncHandler(async (req, res) => {
@@ -69,5 +71,5 @@ export const deleteNote = expressAsyncHandler(async (req, res) => {
   }
 
   await note.deleteOne({ noteId });
-  res.status(200).json(`Note deleted: ${note.id}`);
+  res.status(200).json(`Note deleted: ${note.id}`, { message: "Note deleted" });
 });
