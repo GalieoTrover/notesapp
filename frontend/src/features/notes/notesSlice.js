@@ -13,7 +13,7 @@ export const getNotesThunk = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       // const token = thunkAPI.getState().auth.user.token;
-      return notesService.getNotes();
+      return await notesService.getNotes();
     } catch (error) {
       const message =
         (error.reponse && error.response.data && error.response.data.message) ||
@@ -28,7 +28,7 @@ export const createNoteThunk = createAsyncThunk(
   "notes/createNote",
   async (data, thunkAPI) => {
     try {
-      return notesService.createNote(data);
+      return await notesService.createNote(data);
     } catch (error) {
       const message =
         (error.reponse && error.response.data && error.response.data.message) ||
@@ -38,6 +38,34 @@ export const createNoteThunk = createAsyncThunk(
     }
   }
 );
+
+export const updateNoteThunk = createAsyncThunk(
+  "notes/updateNote",
+  async (noteId, data, thunkAPI) => {
+    try {
+      return notesService.updateNote(noteId, data)
+    } catch (error) {
+      (error.reponse && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+)
+
+export const deleteNoteThunk = createAsyncThunk(
+  "notes/deleteNote",
+  async (noteId, thunkAPI) => {
+    try {
+      return await notesService.deleteNote(noteId)
+    } catch (error) {
+      (error.reponse && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+)
 
 const notesSlice = createSlice({
   name: "notes",
@@ -72,7 +100,35 @@ const notesSlice = createSlice({
       .addCase(createNoteThunk.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
-      });
+      })
+
+      // Handlers to updateNote
+      .addCase(updateNoteThunk.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(updateNoteThunk.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isError = false;
+      })
+      .addCase(updateNoteThunk.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+
+      // Handlers to deleteNote
+      .addCase(deleteNoteThunk.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(deleteNoteThunk.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isError = false;
+      })
+      .addCase(deleteNoteThunk.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
   },
 });
 
